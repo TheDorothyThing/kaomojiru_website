@@ -512,8 +512,16 @@ img {
   animation-name: marquee-right;
 }
 
-.rolling__row:hover .rolling__track,
-.rolling__row:focus-within .rolling__track {
+/* 滑鼠移到某排時暫停；鍵盤 Tab 到按鈕時也暫停。
+   不用 :focus-within，否則滑鼠點擊後按鈕保持 focus，該排會一直停住。
+   hover 只在有滑鼠的裝置生效，避免手機點擊後殘留 hover 狀態。 */
+@media (hover: hover) {
+  .rolling__row:hover .rolling__track {
+    animation-play-state: paused;
+  }
+}
+
+.rolling__row:has(.kaomoji-btn:focus-visible) .rolling__track {
   animation-play-state: paused;
 }
 
@@ -555,9 +563,11 @@ img {
   transition: transform 0.2s var(--ease-out), box-shadow 0.2s ease;
 }
 
-.kaomoji-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 3px 8px rgba(26, 62, 140, 0.18);
+@media (hover: hover) {
+  .kaomoji-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 8px rgba(26, 62, 140, 0.18);
+  }
 }
 
 .kaomoji-btn:active {

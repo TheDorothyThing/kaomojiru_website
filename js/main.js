@@ -107,9 +107,16 @@
   }
 
   function copyText(text) {
+    // 優先使用 Clipboard API；若不支援或被拒絕（例如部分 App 內建瀏覽器），改用舊方法
     if (navigator.clipboard && window.isSecureContext) {
-      return navigator.clipboard.writeText(text);
+      return navigator.clipboard.writeText(text).catch(function () {
+        return legacyCopy(text);
+      });
     }
+    return legacyCopy(text);
+  }
+
+  function legacyCopy(text) {
     return new Promise(function (resolve, reject) {
       const ta = document.createElement("textarea");
       ta.value = text;
