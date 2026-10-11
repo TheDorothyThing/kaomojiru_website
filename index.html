@@ -2,6 +2,31 @@
 <html lang="zh-Hant-TW">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    /* 語言導向：只在首頁（網站根目錄）執行
+       1. 使用者曾在 footer 選過語言 → 依記住的選擇
+       2. 否則依瀏覽器語言：日文 → 日文版、英文 → 英文版、中文 → 留在中文版
+       3. 都不符合 → 英文版
+       搜尋引擎爬蟲不導向，避免中文版無法被收錄 */
+    (function () {
+      if (/bot|crawl|spider|slurp|preview/i.test(navigator.userAgent)) return;
+      var lang = null;
+      try { lang = localStorage.getItem("kaomojiru-lang"); } catch (e) {}
+      if (!lang) {
+        var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+        for (var i = 0; i < prefs.length && !lang; i++) {
+          var code = String(prefs[i]).toLowerCase();
+          if (code.indexOf("zh") === 0) lang = "zh";
+          else if (code.indexOf("ja") === 0) lang = "ja";
+          else if (code.indexOf("en") === 0) lang = "en";
+        }
+        lang = lang || "en";
+      }
+      if (lang === "en" || lang === "ja") {
+        location.replace(lang + "/index.html" + location.search + location.hash);
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>顏文個字 Kaomojiru｜你想得到的五官組合，這裡都有</title>
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" />
@@ -289,17 +314,17 @@
       <a href="privacy.html">隱私權政策</a>
     </nav>
     <nav class="site-footer__lang" aria-label="語言">
-      <a href="en/index.html" lang="en">English</a>
+      <a href="en/index.html" data-lang="en" lang="en">English</a>
       <span class="site-footer__divider" aria-hidden="true"></span>
-      <a href="index.html" aria-current="page">繁體中文</a>
+      <a href="index.html" data-lang="zh" aria-current="page">繁體中文</a>
       <span class="site-footer__divider" aria-hidden="true"></span>
-      <a href="ja/index.html" lang="ja">日本語</a>
+      <a href="ja/index.html" data-lang="ja" lang="ja">日本語</a>
     </nav>
     <p class="site-footer__copy">© 2026 Kaomojiru All Rights Reserved.</p>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/main.js?v=3"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>

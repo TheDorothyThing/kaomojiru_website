@@ -188,6 +188,17 @@
     });
   }
 
+  /* ---------- 記住使用者在 footer 手動選擇的語言（首頁語言導向會優先使用） ---------- */
+  document.querySelectorAll(".site-footer__lang a[data-lang]").forEach(function (link) {
+    link.addEventListener("click", function () {
+      try {
+        localStorage.setItem("kaomojiru-lang", link.dataset.lang);
+      } catch (e) {
+        // 無痕模式等情況無法儲存時，忽略即可
+      }
+    });
+  });
+
   /* ---------- 常見問題：點整列展開 / 收合 ---------- */
   document.querySelectorAll(".faq-item__question").forEach(function (btn) {
     btn.addEventListener("click", function () {
