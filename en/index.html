@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500;600;800&family=Noto+Sans+TC:wght@500;600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css?v=2" />
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -57,7 +57,14 @@
           </a>
         </div>
         <div class="media media--hero">
-          <img src="../images/image_1_ch.png" alt="Kaomojiru home screen showing a list of kaomoji" width="526" height="614" />
+          <div class="hero-phone">
+            <div class="hero-phone__screen">
+              <video class="hero-phone__video" autoplay muted loop playsinline preload="auto" disablepictureinpicture aria-label="Kaomojiru app demo video">
+                <source src="../videos/video_en.mp4" type="video/mp4" />
+              </video>
+              <img class="hero-phone__statusbar" src="../images/statusbar.png" alt="" width="844" height="99" />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -293,6 +300,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="../js/main.js"></script>
+  <script src="../js/main.js?v=2"></script>
 </body>
 </html>

@@ -1,2 +1,5 @@
 .DS_Store
 .claude/
+
+# 原始 HEVC 影片（網站使用轉檔後的 H.264 .mp4）
+videos/*.mov

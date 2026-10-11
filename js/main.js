@@ -173,6 +173,14 @@
     });
   });
 
+  /* ---------- Hero 影片：系統開啟「減少動態效果」時不自動播放 ---------- */
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll(".hero-phone__video").forEach(function (video) {
+      video.removeAttribute("autoplay");
+      video.pause();
+    });
+  }
+
   /* ---------- 常見問題：點整列展開 / 收合 ---------- */
   document.querySelectorAll(".faq-item__question").forEach(function (btn) {
     btn.addEventListener("click", function () {

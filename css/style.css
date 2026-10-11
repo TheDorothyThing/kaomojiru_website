@@ -310,6 +310,45 @@ img {
 
 .media--hero {
   height: 614px;
+  aspect-ratio: 526 / 614;
+}
+
+/* Hero 影片：影片上方蓋 status bar，再整體導圓角
+   Figma：外框 526 × 614，手機 281.25 × 609（圓角 30px），置中
+   全部以手機寬度換算，RWD 縮放時影片、status bar、圓角會等比例一起縮放 */
+.hero-phone {
+  container-type: inline-size;
+  width: 53.47%; /* 281.25 / 526 */
+  aspect-ratio: 750 / 1624; /* 影片原始比例（= 281.25 / 609） */
+}
+
+.hero-phone__screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: calc(30 / 281.25 * 100cqw);
+  background: #f8f8f8;
+  /* 讓 Safari 的 <video> 也確實被圓角裁切 */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  isolation: isolate;
+}
+
+.hero-phone__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 加上 .media 提高權重，避免被 .media img 的固定寬度覆蓋 */
+.media .hero-phone__statusbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
 }
 
 .media--keyboard {
